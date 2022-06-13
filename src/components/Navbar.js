@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import CartIcon from '../assets/icons/cart.png'
 
 export default function Navbar({ setContactVisible }) {
@@ -8,9 +9,9 @@ export default function Navbar({ setContactVisible }) {
       <div className="container xl:px-4 mx-auto flex flex-wrap items-center justify-between">
         <div>
           <div className="relative flex justify-between sl:w-auto md:static md:block md:justify-start">
-            <a href="/" className="text-4xl font-bold leading-relaxed inline-block mr-4 whitespace-nowrap  text-white queenFont">
+            <Link to="/" className="text-4xl font-bold leading-relaxed inline-block mr-4 whitespace-nowrap  text-white queenFont">
               Queen
-            </a>
+            </Link>
           </div>
         </div>
         <div className="lg:flex flex-row flex-grow flex justify-end" id="example-navbar-danger">
@@ -20,16 +21,11 @@ export default function Navbar({ setContactVisible }) {
                 <img src={CartIcon} style={{ width: 17, aspectRatio: 1 / 1 }} alt="cart icon" />
                 <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i><span className="ml-2">Koszyk</span>
               </p>
-              {/* <li className="nav-item">
-              <a href="" className="px-3 py-2 flex flex-row items-center text-xl leading-snug text-white hover:opacity-75">
-                <img src={CartIcon} style={{ width: 17, aspectRatio: 1 / 1 }} alt="cart icon" />
-                <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i><span className="ml-2">Koszyk</span>
-              </a> */}
             </li>
             <li className="nav-item">
-              <a href={"/about"} className="px-3 py-2 flex items-center text-xl leading-snug text-white hover:opacity-75">
+              <Link to="/about" className="px-3 py-2 flex items-center text-xl leading-snug text-white hover:opacity-75">
                 <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75"></i><span className="ml-2">O zespole</span>
-              </a>
+              </Link>
             </li>
             <div onClick={setContactVisible} className="hover:cursor-pointer">
               <p className="px-3 py-2 flex items-center text-xl leading-snug text-white hover:opacity-75">
