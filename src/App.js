@@ -1,7 +1,7 @@
 import './App.css';
 import Navbar from './components/Navbar';
 import ContactForm from './components/ContactForm';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Switch } from "react-router-dom";
 import Home from './routes/Home';
 import About from './routes/About';
 import { useState, useEffect } from 'react';
@@ -24,10 +24,10 @@ function App() {
     <div className="relative">
       <Navbar setContactVisible={openContactForm} />
       <div className="pt-16" />
-      <Routes>
+      <Switch>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/about" element={<About />} />
-      </Routes>
+      </Switch>
       {contactVisible ? <ContactForm visible={contactVisible} setContactVisible={closeContactForm} /> : null}
       <Toaster />
     </div>
