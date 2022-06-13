@@ -1,34 +1,11 @@
 import React, { useRef, useState } from 'react'
 import closeFormIcon from '../assets/icons/closeForm.png'
 import Captcha from './Captcha';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import '../styles/ContactForm.css'; // Tell webpack that Button.js uses these styles
 
-// const useOutsideClick = (callback) => {
-//     const ref = React.useRef();
 
-//     React.useEffect(() => {
-//         const handleClick = (event) => {
-//             if (ref.current && !ref.current.contains(event.target)) {
-//                 callback();
-//             } else return null
-//         };
 
-//         document.addEventListener('click', handleClick);
-
-//         return () => {
-//             document.removeEventListener('click', handleClick);
-//         };
-//     }, [ref]);
-
-//     return ref;
-// };
-
-const Test = [
-    { question: 'Czy Queen to najlepszy zespół w historii?', answers: ['Prawda', 'Fałsz'], correctAnswer: 'Prawda' },
-    { question: 'Ilu członków posiadał zespół Queen?', answers: [1, 2, 3, 4], correctAnswer: 4 },
-    { question: 'Czy Frederick Mercury to prawdziwe imię i nazwisko wokalisty Queen?', answers: ['Tak', 'Nie'], correctAnswer: 'Nie' },
-]
 const initialState = {
     fullName: '',
     email: '',
@@ -36,7 +13,12 @@ const initialState = {
     message: '',
     passedCaptcha: null,
     submitClicked: false,
-    captchaVisible: false
+    captchaVisible: false,
+    captchaQuestions: [
+        { question: 'Czy Queen to najlepszy zespół w historii?', answers: ['Prawda', 'Fałsz'], correctAnswer: 'Prawda' },
+        { question: 'Ilu członków posiadał zespół Queen?', answers: [1, 2, 3, 4], correctAnswer: 4 },
+        { question: 'Czy Frederick Mercury to prawdziwe imię i nazwisko wokalisty Queen?', answers: ['Tak', 'Nie'], correctAnswer: 'Nie' },
+    ]
 }
 
 export default function ContactForm({ visible, setContactVisible }) {
@@ -49,16 +31,16 @@ export default function ContactForm({ visible, setContactVisible }) {
     const validEmail = validateEmail(fields.email) ? true : false;
     const validPhone = fields.phone.replace(/\s/g, "").length === 9 ? true : false; //usuwam spacje i sprawdzam czy długość nr wynosi 9
     const validMessage = fields.message.length > 0;
-    const validForm = validFullname > 0 && validEmail && validPhone && validMessage && fields.submitClicked ? true : false;
+    const validForm = validFullname && validEmail && validPhone && validMessage ? true : false;
 
     const capitalizeName = fullname => fullname.replace(/\b(\w)/g, s => s.toUpperCase());
-    const randomQuestion = Test[Math.floor(Math.random() * Test.length)];
+    const getRandomQuestion = () => fields.captchaQuestions.splice((Math.random() * fields.captchaQuestions.length) | 0, 1)[0];
+    const [randomQuestion, setRandomQuestion] = useState(null)
 
     const invalidFullnameError = fields.submitClicked && !validFullname ? true : false;
     const invalidEmailError = fields.submitClicked && !validEmail ? true : false;
     const invalidPhoneError = fields.submitClicked && !validPhone ? true : false;
     const invalidMessageError = fields.submitClicked && !validMessage ? true : false;
-
 
     const closeContact = () => {
         setContactVisible();
@@ -66,17 +48,27 @@ export default function ContactForm({ visible, setContactVisible }) {
     }
 
     const OnCaptchaSubmit = captchaSuccess => {
-        captchaSuccess ? toast.success('Twoja wiadomość została pomyślnie przesłana') : toast.error('Nie tym razem - jesteś robotem')
-        setContactVisible();
-        setFields({ ...initialState })
+        if (captchaSuccess) {
+            toast.success('Twoja wiadomość została pomyślnie przesłana')
+            setContactVisible();
+            setFields({ ...initialState })
+        }
+        else if (fields.captchaQuestions.length === 0) {
+            toast.error('Jesteś robotem - tym razem Ci się nie udało')
+            setContactVisible();
+            setFields({ ...initialState })
+        }
+        else {
+            setRandomQuestion(getRandomQuestion());
+        }
     }
 
     function handleFormSubmit(e) {
+        setRandomQuestion(getRandomQuestion());
         e.preventDefault();
         if (validForm) setFields({ ...fields, submitClicked: true, captchaVisible: true })
         else setFields({ ...fields, submitClicked: true })
     }
-
 
 
     return (
@@ -173,7 +165,6 @@ const Input = (props) => {
         type = 'text',
         error = false,
         errorText = '',
-        firstInput = false,
         inputStyle = "",
         messageInput = false,
         ...rest

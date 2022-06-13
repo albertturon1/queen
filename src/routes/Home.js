@@ -9,7 +9,7 @@ export default function Home() {
         <>
             <Landing/>
             <div className="pt-10 w-full flex flex-col items-center">
-                <UpcomingTour />
+                <UpcomingTour/>
                 <Albums />
                 <LatestSong />
             </div>

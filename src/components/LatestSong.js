@@ -1,4 +1,5 @@
 import React from 'react'
+import YoutubeEmbed from './YoutubeEmbed'
 
 const SongData = {
     title: 'The Show Must Go On',
@@ -14,7 +15,7 @@ export default function LatestSong() {
     return (
         <div style={{ marginBottom: 100 }} className="px-10 max-w-screen-lg  w-full flex flex-row">
             <div className="flex-1">
-                <YoutubeEmbed embedId={SongData.embed} />
+                <YoutubeEmbed embed={SongData.embed} />
             </div>
             <div className="flex-1 pl-4 pt-3">
                 <p className="text-2xl mb-2" style={{ fontFamily: "EB Garamond" }}>Najnowszy utwór</p>
@@ -37,16 +38,4 @@ const ListeningPlatforms = ({ streamingPlatforms }) => {
         )
     })
 }
-
-const YoutubeEmbed = ({ embedId, title = "Najnowszy utwór" }) => (
-    < iframe
-        width="100%"
-        className="aspect-video"
-        src={`https://www.youtube.com/embed/${embedId}`}
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        title={title}
-    />
-);
 

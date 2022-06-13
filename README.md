@@ -1,5 +1,5 @@
 # Strona o zespole Queen  
 
-Aby uruchomić przejdź do katalogu projektu, następnie w terminalu wpisz:
+Aby uruchomić, przejdź do katalogu projektu, następnie w terminalu wpisz:
 
-### `npm start`
+### `npm run start`

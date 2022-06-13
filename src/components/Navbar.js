@@ -2,7 +2,6 @@ import React from "react";
 import CartIcon from '../assets/icons/cart.png'
 
 export default function Navbar({ setContactVisible }) {
-  console.log(setContactVisible)
 
   return (
     <nav className="flex flex-wrap items-center justify-between px-4 md:px-10  bg-black fixed top-0 z-10 w-full h-16">
