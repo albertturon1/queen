@@ -8,7 +8,7 @@ export default function Navbar({ setContactVisible }) {
       <div className="container xl:px-4 mx-auto flex flex-wrap items-center justify-between">
         <div>
           <div className="relative flex justify-between sl:w-auto md:static md:block md:justify-start">
-            <a href="/" className="text-4xl font-bold leading-relaxed inline-block mr-4 whitespace-nowrap  text-white queenFont">
+            <a href="/queen" className="text-4xl font-bold leading-relaxed inline-block mr-4 whitespace-nowrap  text-white queenFont">
               Queen
             </a>
           </div>
@@ -27,7 +27,7 @@ export default function Navbar({ setContactVisible }) {
               </a> */}
             </li>
             <li className="nav-item">
-              <a href={"about"} className="px-3 py-2 flex items-center text-xl leading-snug text-white hover:opacity-75">
+              <a href={"/queen/about"} className="px-3 py-2 flex items-center text-xl leading-snug text-white hover:opacity-75">
                 <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75"></i><span className="ml-2">O zespole</span>
               </a>
             </li>
