@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import closeFormIcon from '../assets/icons/closeForm.png'
 import Captcha from './Captcha';
 import toast, { Toaster } from 'react-hot-toast';
+import '../styles/ContactForm.css'; // Tell webpack that Button.js uses these styles
 
 // const useOutsideClick = (callback) => {
 //     const ref = React.useRef();
@@ -76,66 +77,70 @@ export default function ContactForm({ visible, setContactVisible }) {
         else setFields({ ...fields, submitClicked: true })
     }
 
+
+
     return (
-        <div className={`flex w-full h-screen justify-end first-line:flex flex-row z-10 fixed top-0 ${visible ? "right-0" : "right-full"}`} style={{ backgroundColor: 'rgba(0,0,0,0.6)' }}>
-            <div className="box-border bg-white h-full pt-10 px-3 md:pl-10 md:pr-32 relative" style={{ width: '50vw' }}>
-                <div className="fixed top-10 right-10 z-30">
-                    <div className="w-10 aspect-square z-10 flex justify-center items-center hover:cursor-pointer" onClick={closeContact}>
-                        <img src={closeFormIcon} className="w-full h-full" />
-                    </div>
-                </div>
-                <div className="w-full h-full">
-                    <p className="font-bold text-2xl mb-2">Formularz kontaktowy</p>
-                    <p>Chcesz nawiązać współpracę lub zadać pytanie? <br />Wypełnij dane poniżej i prześlij formularz</p>
-                    <form onSubmit={handleFormSubmit} className="mt-6 flex flex-col">
-                        {/* register your input into the hook by invoking the "register" function */}
-                        <Input
-                            id='full-name'
-                            label='Imię i nazwisko'
-                            type='text'
-                            placeholder='Jan Kowalski'
-                            value={capitalizeName(fields.fullName)}
-                            onChange={e => setFields({ ...fields, fullName: e.target.value })}
-                            error={invalidFullnameError}
-                            errorText="Podaj poprawne imię"
-                        />
-                        <Input
-                            id='email'
-                            label='E-mail'
-                            type='email'
-                            placeholder='mail@mail.com'
-                            value={fields.email}
-                            onChange={e => setFields({ ...fields, email: e.target.value })}
-                            error={invalidEmailError}
-                            errorText="Podaj poprawny adres e-mail"
-                        />
-                        <Input
-                            id='phone'
-                            label='Twój numer telefonu'
-                            type='tel'
-                            placeholder='123 456 789'
-                            value={formatPhoneValue}
-                            onChange={e => e.target.value.replace(/\s/g, "").length <= 9 ? setFields({ ...fields, phone: e.target.value }) : null}
-                            error={invalidPhoneError}
-                            errorText="Numer telefonu jest za krótki"
-                        />
-                        <Input
-                            id='message'
-                            label='Wiadomość'
-                            type='text'
-                            placeholder='Dodaj wiadomość'
-                            inputStyle="h-40"
-                            value={fields.message}
-                            messageInput
-                            onChange={e => setFields({ ...fields, message: e.target.value })}
-                            error={invalidMessageError}
-                            errorText="Zdaję się, że zapomniałeś napisać wiadomość"
-                        />
-                        <div className="flex justify-center w-full mt-7">
-                            <input type="submit" className={`bg-red-500 py-3 w-64 text-white font-bold rounded-sm hover:cursor-pointer`} value="Prześlij" />
+        <div className={`flex w-full h-screen justify-end first-line:flex flex-row z-10 fixed top-0 `} style={{ backgroundColor: 'rgba(0,0,0,0.6)' }}>
+            <div className={`fixed top-0 bottom-0 ${visible ? "open-form" : null}`}>
+                <div className="box-border bg-white h-full pt-10 px-3 md:pl-10 md:pr-32 relative" style={{ width: '50vw' }}>
+                    <div className="fixed top-10 right-10 z-30">
+                        <div className="w-10 aspect-square z-10 flex justify-center items-center hover:cursor-pointer" onClick={closeContact}>
+                            <img src={closeFormIcon} className="w-full h-full" />
                         </div>
-                    </form>
-                    {fields.captchaVisible ? <Captcha passedCaptcha={fields.passedCaptcha} onCaptchaSubmit={OnCaptchaSubmit} question={randomQuestion} /> : null}
+                    </div>
+                    <div className="w-full h-full">
+                        <p className="font-bold text-2xl mb-2">Formularz kontaktowy</p>
+                        <p>Chcesz nawiązać współpracę lub zadać pytanie? <br />Wypełnij dane poniżej i prześlij formularz</p>
+                        <form onSubmit={handleFormSubmit} className="mt-6 flex flex-col">
+                            {/* register your input into the hook by invoking the "register" function */}
+                            <Input
+                                id='full-name'
+                                label='Imię i nazwisko'
+                                type='text'
+                                placeholder='Jan Kowalski'
+                                value={capitalizeName(fields.fullName)}
+                                onChange={e => setFields({ ...fields, fullName: e.target.value })}
+                                error={invalidFullnameError}
+                                errorText="Podaj poprawne imię"
+                            />
+                            <Input
+                                id='email'
+                                label='E-mail'
+                                type='email'
+                                placeholder='mail@mail.com'
+                                value={fields.email}
+                                onChange={e => setFields({ ...fields, email: e.target.value })}
+                                error={invalidEmailError}
+                                errorText="Podaj poprawny adres e-mail"
+                            />
+                            <Input
+                                id='phone'
+                                label='Twój numer telefonu'
+                                type='tel'
+                                placeholder='123 456 789'
+                                value={formatPhoneValue}
+                                onChange={e => e.target.value.replace(/\s/g, "").length <= 9 ? setFields({ ...fields, phone: e.target.value }) : null}
+                                error={invalidPhoneError}
+                                errorText="Numer telefonu jest za krótki"
+                            />
+                            <Input
+                                id='message'
+                                label='Wiadomość'
+                                type='text'
+                                placeholder='Dodaj wiadomość'
+                                inputStyle="h-40"
+                                value={fields.message}
+                                messageInput
+                                onChange={e => setFields({ ...fields, message: e.target.value })}
+                                error={invalidMessageError}
+                                errorText="Zdaję się, że zapomniałeś napisać wiadomość"
+                            />
+                            <div className="flex justify-center w-full mt-7">
+                                <input type="submit" className={`bg-red-500 py-3 w-64 text-white font-bold rounded-sm hover:cursor-pointer`} value="Prześlij" />
+                            </div>
+                        </form>
+                        {fields.captchaVisible ? <Captcha passedCaptcha={fields.passedCaptcha} onCaptchaSubmit={OnCaptchaSubmit} question={randomQuestion} /> : null}
+                    </div>
                 </div>
             </div>
         </div>
