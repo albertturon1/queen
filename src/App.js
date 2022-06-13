@@ -25,8 +25,8 @@ function App() {
       <Navbar setContactVisible={openContactForm} />
       <div className="pt-16" />
       <Routes>
-        <Route exact path="/queen" element={<Home />} />
-        <Route exact path="/queen/about" element={<About />} />
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/about" element={<About />} />
       </Routes>
       {contactVisible ? <ContactForm visible={contactVisible} setContactVisible={closeContactForm} /> : null}
       <Toaster />
